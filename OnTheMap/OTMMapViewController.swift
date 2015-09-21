@@ -16,7 +16,7 @@ class OTMMapViewController: UIViewController, MKMapViewDelegate {
         }
         set {
             _students = newValue
-            mapView.addAnnotations(students)
+            mapView.addAnnotations(students!)
 
         }
     }
@@ -49,7 +49,7 @@ class OTMMapViewController: UIViewController, MKMapViewDelegate {
         mapView.setRegion(coordinateRegion, animated: true)
     }
 
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? OTMStudent {
             let identifier = "pin"
             var view: MKPinAnnotationView
@@ -62,14 +62,14 @@ class OTMMapViewController: UIViewController, MKMapViewDelegate {
                 view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 view.canShowCallout = true
                 view.calloutOffset = CGPoint(x: -5, y: 5)
-                view.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIView
+                view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
             }
             return view
         }
         return nil
     }
-    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!,
-        calloutAccessoryControlTapped control: UIControl!) {
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView,
+        calloutAccessoryControlTapped control: UIControl) {
             let location = view.annotation as! OTMStudent
             let url = NSURL(string: location.mediaURL!)
             UIApplication.sharedApplication().openURL(url!)

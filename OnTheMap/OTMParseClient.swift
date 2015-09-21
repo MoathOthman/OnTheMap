@@ -39,11 +39,11 @@ class OTMParseClient: NSObject {
     func taskForGETMethod(method: String, parameters: [String : AnyObject], completionHandler: CommonAPICompletionHandler, noescapedParameter: Bool ) -> NSURLSessionDataTask {
 
         /* 1. Set the parameters */
-        var mutableParameters = parameters
+        let mutableParameters = parameters
 
         /* 2/3. Build the URL and configure the request */
         let urlString = Constants.BaseURLSecure + method + OTMParseClient.escapedParameters(mutableParameters,addingPercentage: noescapedParameter)
-        print("urlString \(urlString)")
+        print("urlString \(urlString)", terminator: "")
         let url = NSURL(string: urlString)!
         let request = NSMutableURLRequest(URL: url)
         request.addValue(ParameterKeys.parseApplicationId, forHTTPHeaderField: "X-Parse-Application-Id")
@@ -52,10 +52,10 @@ class OTMParseClient: NSObject {
         let task = session.dataTaskWithRequest(request) {data, response, downloadError in
           dispatch_async(dispatch_get_main_queue(), { () -> Void in
             if let error = downloadError {
-                let newError = OTMUdacityClient.errorForData(data, response: response, error: error)
+                _ = OTMUdacityClient.errorForData(data, response: response, error: error)
                 completionHandler(response: nil, error: downloadError)
             } else {
-                  OTMParseClient.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
+                  OTMParseClient.parseJSONWithCompletionHandler(data!, completionHandler: completionHandler)
             }
           })
            
@@ -82,21 +82,26 @@ class OTMParseClient: NSObject {
         let urlString = Constants.BaseURLSecure + method + OTMParseClient.escapedParameters(mutableParameters)
         let url = NSURL(string: urlString)!
         let request = NSMutableURLRequest(URL: url)
-        var jsonifyError: NSError? = nil
+//        var jsonifyError: NSError? = nil
         request.HTTPMethod = httpMethod
         request.addValue(ParameterKeys.parseApplicationId, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(ParameterKeys.parseRestAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(jsonBody, options: nil, error: &jsonifyError)
+        do {
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(jsonBody, options: [])
+        } catch _ as NSError {
+//            jsonifyError = error
+            request.HTTPBody = nil
+        }
 
         /* 4. Make the request */
         let task = session.dataTaskWithRequest(request) {data, response, downloadError in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 if let error = downloadError {
-                    let newError = OTMUdacityClient.errorForData(data, response: response, error: error)
+                    _ = OTMUdacityClient.errorForData(data, response: response, error: error)
                     completionHandler(response: nil, error: downloadError)
                 } else {
-                    OTMParseClient.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
+                    OTMParseClient.parseJSONWithCompletionHandler(data!, completionHandler: completionHandler)
                 }
             })
 
@@ -121,7 +126,7 @@ class OTMParseClient: NSObject {
     /* Helper: Given a response with error, see if a status_message is returned, otherwise return the previous error */
     class func errorForData(data: NSData?, response: NSURLResponse?, error: NSError) -> NSError {
 
-        if let parsedResult = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments, error: nil) as? [String : AnyObject] {
+        if let _ = (try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)) as? [String : AnyObject] {
 
 //            if let errorMessage = parsedResult[OTMParseClient.JSONResponseKeys.StatusMessage] as? String {
 //
@@ -139,7 +144,13 @@ class OTMParseClient: NSObject {
 
         var parsingError: NSError? = nil
 
-        let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
+        let parsedResult: AnyObject?
+        do {
+            parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
+        } catch let error as NSError {
+            parsingError = error
+            parsedResult = nil
+        }
 
         if let error = parsingError {
             completionHandler(result: nil, error: error)
@@ -171,7 +182,7 @@ class OTMParseClient: NSObject {
 
         }
 
-        return (!urlVars.isEmpty ? "?" : "") + join("&", urlVars)
+        return (!urlVars.isEmpty ? "?" : "") + urlVars.joinWithSeparator("&")
     }
 
 

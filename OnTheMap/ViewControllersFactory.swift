@@ -28,7 +28,7 @@ enum ViewControllerType {
 
 class ViewControllersFactory {
     class func make(type : ViewControllerType) -> AnyObject {
-        var mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
         switch type {
         case .Locations:
             return mainStoryBoard.instantiateViewControllerWithIdentifier(StoryBoardIdentifiers.locations)

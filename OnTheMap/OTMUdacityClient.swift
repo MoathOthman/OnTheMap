@@ -36,7 +36,7 @@ class OTMUdacityClient : NSObject {
     func taskForGETMethod(method: String, parameters: [String : AnyObject], completionHandler: CommonAPICompletionHandler) -> NSURLSessionDataTask {
 
         /* 1. Set the parameters */
-        var mutableParameters = parameters
+        let mutableParameters = parameters
 
         /* 2/3. Build the URL and configure the request */
         let urlString = Constants.BaseURLSecure + method + OTMUdacityClient.escapedParameters(mutableParameters)
@@ -48,10 +48,10 @@ class OTMUdacityClient : NSObject {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
  /* 5/6. Parse the data and use the data (happens in completion handler) */
             if let error = downloadError {
-                let newError = OTMUdacityClient.errorForData(data, response: response, error: error)
+                _ = OTMUdacityClient.errorForData(data, response: response, error: error)
                 completionHandler(response: nil, error: downloadError)
             } else {
-                let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+                let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
 
                 OTMUdacityClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
             }
@@ -82,7 +82,12 @@ class OTMUdacityClient : NSObject {
         request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(jsonBody, options: nil, error: &jsonifyError)
+        do {
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(jsonBody, options: [])
+        } catch var error as NSError {
+            jsonifyError = error
+            request.HTTPBody = nil
+        }
 
         /* 4. Make the request */
         let task = session.dataTaskWithRequest(request) {data, response, downloadError in
@@ -93,7 +98,7 @@ dispatch_async(dispatch_get_main_queue(), { () -> Void in
         let newError = OTMUdacityClient.errorForData(data, response: response, error: error)
         completionHandler(response: nil, error: downloadError)
     } else {
-        let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+        let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
         OTMUdacityClient.parseJSONWithCompletionHandler(newData, completionHandler: completionHandler)
     }
     })
@@ -122,7 +127,7 @@ dispatch_async(dispatch_get_main_queue(), { () -> Void in
     /* Helper: Given a response with error, see if a status_message is returned, otherwise return the previous error */
     class func errorForData(data: NSData?, response: NSURLResponse?, error: NSError) -> NSError {
 
-        if let parsedResult = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments, error: nil) as? [String : AnyObject] {
+        if let parsedResult = (try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)) as? [String : AnyObject] {
 
             if let errorMessage = parsedResult[OTMUdacityClient.JSONResponseKeys.StatusMessage] as? String {
 
@@ -140,7 +145,13 @@ dispatch_async(dispatch_get_main_queue(), { () -> Void in
 
         var parsingError: NSError? = nil
 
-        let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
+        let parsedResult: AnyObject?
+        do {
+            parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
+        } catch let error as NSError {
+            parsingError = error
+            parsedResult = nil
+        }
 
         if let error = parsingError {
             completionHandler(response: nil, error: error)
@@ -167,7 +178,7 @@ dispatch_async(dispatch_get_main_queue(), { () -> Void in
 
         }
 
-        return (!urlVars.isEmpty ? "?" : "") + join("&", urlVars)
+        return (!urlVars.isEmpty ? "?" : "") + urlVars.joinWithSeparator("&")
     }
 
     // MARK: - Shared Instance

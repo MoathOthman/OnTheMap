@@ -37,17 +37,18 @@ class OTMLocationPostViewController: UIViewController, UITextViewDelegate {
 
     @IBAction func findOntheMap(sender: AnyObject) {
 
-        var location = CLGeocoder()
+        let location = CLGeocoder()
         MOHUD.show("Posting")
-        location.geocodeAddressString(inputLocationtextView.text, completionHandler: { (array:[AnyObject]! , error) -> Void in
+
+        location.geocodeAddressString(NSString(string: inputLocationtextView.text) as String, completionHandler: { (array:[CLPlacemark]? , error) -> Void in
             if let err = error {
-                println("eroro \(err)")
+                print("eroro \(err)")
                 MOHUD.showWithError("Failed to find the location, please check the spelling", delay: 4)
             }else {
-                var place = array.first as! CLPlacemark
-                println(place.location)
-                var locationsubmit = ViewControllersFactory.make(.submitInfo) as! OTMSubmitInfoViewController
-                locationsubmit.locationCoordinates = place.location
+                let place = array!.first
+                print(place!.location)
+                let locationsubmit = ViewControllersFactory.make(.submitInfo) as! OTMSubmitInfoViewController
+                locationsubmit.locationCoordinates = place!.location!
                 locationsubmit.mapString = self.inputLocationtextView.text
                 self.presentViewController(locationsubmit, animated: true) { () -> Void in
                 }

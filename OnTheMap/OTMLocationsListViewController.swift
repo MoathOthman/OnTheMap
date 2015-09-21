@@ -30,7 +30,7 @@ class OTMLocationsListViewController: UITableViewController {
         return 0
     }
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) 
         let student: OTMStudent = _students![indexPath.row]
         cell.imageView?.image = UIImage(named: "pin")
         cell.textLabel?.text = student.firstName

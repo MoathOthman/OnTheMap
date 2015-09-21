@@ -23,13 +23,13 @@ class OTMLocationsViewController: UIViewController {
         queryTheCurrentUser()
     }
     func prepareChildViewControllers() {
-        var tabbarController = self.childViewControllers[0] as! UITabBarController
-        if var mapViewController: OTMMapViewController = tabbarController.viewControllers?[0] as? OTMMapViewController  {
+        let tabbarController = self.childViewControllers[0] as! UITabBarController
+        if let mapViewController: OTMMapViewController = tabbarController.viewControllers?[0] as? OTMMapViewController  {
             self.locationsMapViewController = mapViewController
         }
         if let locationsListNav = tabbarController.viewControllers?[1] as?  UINavigationController
         {
-            if var listViewController = locationsListNav.viewControllers?[0] as? OTMLocationsListViewController {
+            if let listViewController = locationsListNav.viewControllers[0] as? OTMLocationsListViewController {
                 self.listStudentsViewController = listViewController
             }
         }
@@ -41,7 +41,7 @@ class OTMLocationsViewController: UIViewController {
             if OTMStudent.thisUser().latitude != nil {/*make sure he has info */
             self.locationsMapViewController?.thisUser = OTMStudent.thisUser()
             }
-            print("quesrystudenmtlocaiton \(OTMStudent.thisUser().latitude)\n")
+            print("quesrystudenmtlocaiton \(OTMStudent.thisUser().latitude)\n", terminator: "")
         })
     }
     func parseUserPublocData() {
@@ -90,7 +90,7 @@ class OTMLocationsViewController: UIViewController {
                 })
                 MOHUD.dismiss()
             } else {
-                print("not able to logout")
+                print("not able to logout", terminator: "")
                 MOHUD.showWithError("Not able to logout, check your connection", delay: 2)
             }
 
@@ -103,17 +103,17 @@ class OTMLocationsViewController: UIViewController {
     //MARK UI
     func configureNavigationBar() {
         self.title = "On The Map"
-        var navigationbarItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: Selector("postLocation:"))
-        var _arrayOfbutton: [AnyObject]? = self.navigationItem.rightBarButtonItems
+        let navigationbarItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: Selector("postLocation:"))
+        var _arrayOfbutton: [UIBarButtonItem]? = self.navigationItem.rightBarButtonItems
        _arrayOfbutton?.append(navigationbarItem)
         self.navigationItem.rightBarButtonItems = _arrayOfbutton
     }
     //MARK: Helper
 
     func showOverwriteAlert() {
-        var thisuser = OTMStudent.thisUser()
-        var fullname = thisuser.firstName! + " " + thisuser.lastName!
-        var alert = UIAlertController(title: "", message: "User \"\(fullname)\" Has Already Posted a Student Location. Would You Like to Overwrite Their Location", preferredStyle: UIAlertControllerStyle.Alert)
+        let thisuser = OTMStudent.thisUser()
+        let fullname = thisuser.firstName! + " " + thisuser.lastName!
+        let alert = UIAlertController(title: "", message: "User \"\(fullname)\" Has Already Posted a Student Location. Would You Like to Overwrite Their Location", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Overwrite", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             alert.dismissViewControllerAnimated(true, completion: nil)
             self.bringThePostLocationViewcontroller()
@@ -127,7 +127,7 @@ class OTMLocationsViewController: UIViewController {
     func checkIfUSerLoggedInUsingFacebook()-> Bool {
         if (FBSDKAccessToken.currentAccessToken() != nil) {
             //user has already a token
-            var facebookmanager = FBSDKLoginManager()
+            let facebookmanager = FBSDKLoginManager()
               facebookmanager.logOut()
             return true
         }

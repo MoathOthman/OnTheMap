@@ -16,7 +16,7 @@ extension OTMTextField {
             return CGFloat(self.leftView!.bounds.size.width);
         }
         set {
-            var view = UIView(frame: CGRect(x: CGFloat(0), y: CGFloat(0), width: CGFloat(newValue), height: CGFloat(0)))
+            let view = UIView(frame: CGRect(x: CGFloat(0), y: CGFloat(0), width: CGFloat(newValue), height: CGFloat(0)))
             self.leftViewMode = .Always;
             self.leftView = view;
         }

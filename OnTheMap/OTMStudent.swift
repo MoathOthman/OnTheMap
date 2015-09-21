@@ -47,14 +47,14 @@ class OTMStudent: NSObject, MKAnnotation {
         return students
     }
 
-    var subtitle: String {
+    var subtitle: String? {
         if let murl = mediaURL {
             return murl
         }
         return  ""
     }
-    var title: String {
-        if let fn = firstName {
+    var title: String? {
+        if let _ = firstName {
         return firstName!
         }
         return ""
@@ -64,9 +64,8 @@ class OTMStudent: NSObject, MKAnnotation {
     }
 
     func mapItem() -> MKMapItem {
-        let addressDictionary = [String(kABPersonAddressStreetKey): subtitle]
-        let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDictionary)
-
+        let addressDictionary = [String(kABPersonAddressStreetKey): subtitle!]
+        let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDictionary as [String: AnyObject]?)
         let mapItem = MKMapItem(placemark: placemark)
         mapItem.name = title
         
@@ -83,7 +82,7 @@ extension OTMStudent {
     }
 
     class func fillUserFromJson(results: AnyObject?) {
-        var shared = OTMStudent.thisUser()
+        let shared = OTMStudent.thisUser()
         // if come from query locations
         if let _results = results?.valueForKey("results") as? [AnyObject] {
             let sorted = NSOrderedSet(array: _results)
@@ -111,7 +110,7 @@ extension OTMStudent {
     }
 
     class func checkIfUserHasAlreadyALocation() -> Bool{
-        var user = OTMStudent.thisUser()
+        let user = OTMStudent.thisUser()
         var haspreviousLocation = false
         if let lat = user.latitude {
             if lat != 0 {

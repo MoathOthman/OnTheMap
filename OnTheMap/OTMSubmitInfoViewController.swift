@@ -16,7 +16,7 @@ class OTMSubmitInfoViewController: UIViewController, MKMapViewDelegate, UITextVi
     @IBOutlet weak var linkTextField: UITextView!
     var student:OTMStudent {
         get{
-            var _strudent = OTMStudent.thisUser()
+            let _strudent = OTMStudent.thisUser()
             _strudent.mediaURL = linkTextField.text
             _strudent.latitude = locationCoordinates.coordinate.latitude
             _strudent.longitude = locationCoordinates.coordinate.longitude
@@ -72,7 +72,7 @@ class OTMSubmitInfoViewController: UIViewController, MKMapViewDelegate, UITextVi
         })
     }
 
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
         if let annotation = annotation as? OTMStudent {
             let identifier = "pin"
             var view: MKPinAnnotationView
@@ -85,7 +85,7 @@ class OTMSubmitInfoViewController: UIViewController, MKMapViewDelegate, UITextVi
                 view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 view.canShowCallout = true
                 view.calloutOffset = CGPoint(x: -5, y: 5)
-                view.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIView
+                view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
             }
             return view
         }

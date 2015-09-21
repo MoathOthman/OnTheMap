@@ -26,15 +26,15 @@ class LoginViewController: UIViewController {
             return
         }
         MOHUD.show()
-        client.loginWithCredntials(emailTextField.text, password: passwordTextField.text) { (success, sessionID, errorString) -> Void in
+        client.loginWithCredntials(emailTextField.text!, password: passwordTextField.text!) { (success, sessionID, errorString) -> Void in
             if (sessionID != nil) {
                 //go to tabController
                 OTMUdacityClient.sharedInstance().sessionID = sessionID
                 self.presentTheLocationsViewController()
-                println("session id is \(sessionID)")
+                print("session id is \(sessionID)")
             }else {
-                println(errorString?.localizedDescription)
-                var errs = errorString?.localizedDescription
+                print(errorString?.localizedDescription)
+                let errs = errorString?.localizedDescription
                 MOHUD.showWithError(errs!)
             }
         }
@@ -44,18 +44,18 @@ class LoginViewController: UIViewController {
     @IBAction func signInWithFacebook(sender: AnyObject) {
         if (FBSDKAccessToken.currentAccessToken() != nil) {
             //user has already a token
-            var ctoken = FBSDKAccessToken.currentAccessToken()
+            let ctoken = FBSDKAccessToken.currentAccessToken()
              loginWithFacebook(ctoken.tokenString)
         } else {
-        var facebookmanager = FBSDKLoginManager()
+        let facebookmanager = FBSDKLoginManager()
 //            facebookmanager.loginBehavior = FBSDKLoginBehavior.Browser
         facebookmanager.logInWithReadPermissions(["email"], handler: { (loginResult: FBSDKLoginManagerLoginResult!, error) -> Void in
-            if let err = error {
-                println("login with facebook failed")
+            if let _ = error {
+                print("login with facebook failed")
             }else {
-                var accesstokenobject = loginResult.token
-                var tokenString  = accesstokenobject.tokenString
-                println("token string is \(tokenString)")
+                let accesstokenobject = loginResult.token
+                let tokenString  = accesstokenobject.tokenString
+                print("token string is \(tokenString)")
                 self.loginWithFacebook(tokenString)
             }
         })
@@ -66,17 +66,17 @@ class LoginViewController: UIViewController {
 
         client.loginWithFacebook(accessToken, completionHandler: { (success, sessionID, errorString) -> Void in
             if let err = errorString {
-                println("erroris \(err.localizedDescription)\n")
+                print("erroris \(err.localizedDescription)\n")
                 MOHUD.showWithError(err.localizedDescription)
              } else {
             if (sessionID != nil) {
                 // go to tabController
                 OTMUdacityClient.sharedInstance().sessionID = sessionID
                 self.presentTheLocationsViewController()
-                println("session id is \(sessionID)")
+                print("session id is \(sessionID)")
 
             }else {
-                println("errorloginface \(errorString?.localizedDescription)")
+                print("errorloginface \(errorString?.localizedDescription)")
 
             }
             }
@@ -100,7 +100,7 @@ class LoginViewController: UIViewController {
         self.backgroundGradient!.colors = [colorTop, colorBottom]
         self.backgroundGradient!.locations = [0.0, 1.0]
         self.backgroundGradient!.frame = view.frame
-        self.view.layer.insertSublayer(self.backgroundGradient, atIndex: 0)
+        self.view.layer.insertSublayer(self.backgroundGradient!, atIndex: 0)
     }
 
 }
@@ -110,7 +110,7 @@ extension LoginViewController {
     func validateLoginTextFields() -> Bool {
         if let emailtf = emailTextField.text,
             let password = passwordTextField.text {
-                if count(emailtf) > 0 && count(password) > 0 {
+                if emailtf.characters.count > 0 && password.characters.count > 0 {
                     return true
                 }
         }

@@ -12,11 +12,11 @@ extension OTMParseClient {
 
     func queryStudentLocation(uniqueId: String, completion: CommonAPICompletionHandler) {
         //get
-        var specialid = "%7B%22uniqueKey%22%3A%22\(uniqueId)%22%7D"
-        var parameters = ["where":specialid]
+        let specialid = "%7B%22uniqueKey%22%3A%22\(uniqueId)%22%7D"
+        let parameters = ["where":specialid]
 
     taskForGETMethod(Methods.StudentLocation, parameters: parameters, completionHandler: { (response, error) -> Void in
-        print("\n")
+        print("\n", terminator: "")
         completion(response: response, error: error)
     }, noescapedParameter: true)
 
@@ -35,7 +35,7 @@ extension OTMParseClient {
 
         taskForMethod("PUT", method: Methods.StudentLocation + "/" + objectId, parameters: [String:AnyObject](), jsonBody: jsonBody as! [String : AnyObject]) { (response, error) -> Void in
             if error != nil {
-                println("post location errror \(error)")
+                print("post location errror \(error)")
                 completionhandler(response: nil,error: error)
             } else {
                 completionhandler(response: response,error: nil)
@@ -45,13 +45,13 @@ extension OTMParseClient {
     }
 
     func getStuduntLocations(limit: Int, comletionhandler:StudentsCompletionHandler) {
-        var parameters = ["limit": limit]
+        let parameters = ["limit": limit]
         taskForGETMethod(Methods.StudentLocation, parameters: parameters) { (result, errorx) -> Void in
             if let err = errorx {
                 comletionhandler(response: nil, error: err)
             }else {
                 if let results = result!.valueForKey(OTMParseClient.JSONResponseKeys.results) as? [[String : AnyObject]] {
-                    var movies = OTMStudent.studentsFromResults(results)
+                    let movies = OTMStudent.studentsFromResults(results)
                     comletionhandler(response: movies, error: nil)
                 }else {
                     comletionhandler(response: nil, error: NSError(domain: "students", code: 99, userInfo: nil))
@@ -74,7 +74,7 @@ extension OTMParseClient {
 
         taskForPOSTMethod(Methods.StudentLocation, parameters: [String:AnyObject](), jsonBody: jsonbody as! [String : AnyObject]) { (result, error) -> Void in
             if error != nil {
-                println("post location errror \(error)")
+                print("post location errror \(error)")
                 completionhandler(response: nil,error: error)
             } else {
                 completionhandler(response: result,error: nil)

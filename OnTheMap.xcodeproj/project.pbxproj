@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		16DB8332E6C4F9BBC9501F59 /* Pods_OnTheMapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16EB0CE07768F725DBD491EF /* Pods_OnTheMapTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		189BF391A7B197138478D854 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E14E6566325AD0C3AE0921D /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		EC18CE341B454170006CD748 /* UIViewInsoectables.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC18CE331B454170006CD748 /* UIViewInsoectables.swift */; };
 		EC5539581B2E0AA10002502B /* OTMLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5539571B2E0AA10002502B /* OTMLocation.swift */; };
@@ -38,21 +37,10 @@
 		ECDD466D1B23182A00A87493 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECDD466B1B23182A00A87493 /* Main.storyboard */; };
 		ECDD466F1B23182A00A87493 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECDD466E1B23182A00A87493 /* Images.xcassets */; };
 		ECDD46721B23182A00A87493 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECDD46701B23182A00A87493 /* LaunchScreen.xib */; };
-		ECDD467E1B23182A00A87493 /* OnTheMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDD467D1B23182A00A87493 /* OnTheMapTests.swift */; };
 		ECDD46891B231D6C00A87493 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDD46881B231D6C00A87493 /* LoginViewController.swift */; };
 		ECDD468C1B2327A200A87493 /* TextFieldInspectables.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDD468B1B2327A200A87493 /* TextFieldInspectables.swift */; };
 		ECECC1CA1B38B02D00C9B2B9 /* OTMbridge.m in Sources */ = {isa = PBXBuildFile; fileRef = ECECC1C91B38B02D00C9B2B9 /* OTMbridge.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		ECDD46781B23182A00A87493 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = ECDD465A1B23182A00A87493 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = ECDD46611B23182A00A87493;
-			remoteInfo = OnTheMap;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		035AA41F6EA845DC3A1BE62F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -92,7 +80,6 @@
 		ECDD466C1B23182A00A87493 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ECDD466E1B23182A00A87493 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		ECDD46711B23182A00A87493 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		ECDD46771B23182A00A87493 /* OnTheMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnTheMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECDD467C1B23182A00A87493 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ECDD467D1B23182A00A87493 /* OnTheMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapTests.swift; sourceTree = "<group>"; };
 		ECDD46881B231D6C00A87493 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -112,14 +99,6 @@
 				EC55B6051B36371300FAD3A1 /* CoreLocation.framework in Frameworks */,
 				EC55395E1B2E2C800002502B /* MapKit.framework in Frameworks */,
 				189BF391A7B197138478D854 /* Pods.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		ECDD46741B23182A00A87493 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				16DB8332E6C4F9BBC9501F59 /* Pods_OnTheMapTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,7 +227,6 @@
 			isa = PBXGroup;
 			children = (
 				ECDD46621B23182A00A87493 /* OnTheMap.app */,
-				ECDD46771B23182A00A87493 /* OnTheMapTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -346,27 +324,6 @@
 			productReference = ECDD46621B23182A00A87493 /* OnTheMap.app */;
 			productType = "com.apple.product-type.application";
 		};
-		ECDD46761B23182A00A87493 /* OnTheMapTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = ECDD46841B23182A00A87493 /* Build configuration list for PBXNativeTarget "OnTheMapTests" */;
-			buildPhases = (
-				778B6559EE0F3E49E5CD3EFE /* Check Pods Manifest.lock */,
-				ECDD46731B23182A00A87493 /* Sources */,
-				ECDD46741B23182A00A87493 /* Frameworks */,
-				ECDD46751B23182A00A87493 /* Resources */,
-				795808481ABD11420737A513 /* Embed Pods Frameworks */,
-				A96079F04EAA8FE159F58105 /* Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				ECDD46791B23182A00A87493 /* PBXTargetDependency */,
-			);
-			name = OnTheMapTests;
-			productName = OnTheMapTests;
-			productReference = ECDD46771B23182A00A87493 /* OnTheMapTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -374,16 +331,13 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = OTM;
+				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = Moba;
 				TargetAttributes = {
 					ECDD46611B23182A00A87493 = {
 						CreatedOnToolsVersion = 6.3.1;
-					};
-					ECDD46761B23182A00A87493 = {
-						CreatedOnToolsVersion = 6.3.1;
-						TestTargetID = ECDD46611B23182A00A87493;
 					};
 				};
 			};
@@ -401,7 +355,6 @@
 			projectRoot = "";
 			targets = (
 				ECDD46611B23182A00A87493 /* OnTheMap */,
-				ECDD46761B23182A00A87493 /* OnTheMapTests */,
 			);
 		};
 /* End PBXProject section */
@@ -418,13 +371,6 @@
 				ECDD46721B23182A00A87493 /* LaunchScreen.xib in Resources */,
 				ECDD466F1B23182A00A87493 /* Images.xcassets in Resources */,
 				ECA072D71B3E34FA00923910 /* MOHUD.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		ECDD46751B23182A00A87493 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,51 +422,6 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		778B6559EE0F3E49E5CD3EFE /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		795808481ABD11420737A513 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OnTheMapTests/Pods-OnTheMapTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A96079F04EAA8FE159F58105 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OnTheMapTests/Pods-OnTheMapTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -554,23 +455,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		ECDD46731B23182A00A87493 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				ECDD467E1B23182A00A87493 /* OnTheMapTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		ECDD46791B23182A00A87493 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = ECDD46611B23182A00A87493 /* OnTheMap */;
-			targetProxy = ECDD46781B23182A00A87493 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		ECDD466B1B23182A00A87493 /* Main.storyboard */ = {
@@ -702,42 +587,6 @@
 			};
 			name = Release;
 		};
-		ECDD46851B23182A00A87493 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E3CD98BFB129DDADEDDFFF1 /* Pods-OnTheMapTests.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = OnTheMapTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OnTheMap.app/OnTheMap";
-			};
-			name = Debug;
-		};
-		ECDD46861B23182A00A87493 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CC54D9E35FA548EE3A88361A /* Pods-OnTheMapTests.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = OnTheMapTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OnTheMap.app/OnTheMap";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -755,15 +604,6 @@
 			buildConfigurations = (
 				ECDD46821B23182A00A87493 /* Debug */,
 				ECDD46831B23182A00A87493 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		ECDD46841B23182A00A87493 /* Build configuration list for PBXNativeTarget "OnTheMapTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				ECDD46851B23182A00A87493 /* Debug */,
-				ECDD46861B23182A00A87493 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

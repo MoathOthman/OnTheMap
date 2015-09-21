@@ -136,7 +136,7 @@ enum MOSceneType {
 
 extension MOHUD {
     class func make(type : MOSceneType) -> AnyObject {
-        var mainStoryBoard: UIStoryboard = UIStoryboard(name: "MOHUD", bundle: nil)
+        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "MOHUD", bundle: nil)
         switch type {
         case .progress:
             return mainStoryBoard.instantiateViewControllerWithIdentifier(MOStoryBoardID.progress)
@@ -144,9 +144,8 @@ extension MOHUD {
             return mainStoryBoard.instantiateViewControllerWithIdentifier(MOStoryBoardID.success)
         case .failure:
             return mainStoryBoard.instantiateViewControllerWithIdentifier(MOStoryBoardID.failure)
-        default:
-            NSException.raise("No Scene found", format: "please update storyboard ids", arguments: CVaListPointer(_fromUnsafeMutablePointer: nil))
-            return mainStoryBoard.instantiateViewControllerWithIdentifier("")
+//            NSException.raise("No Scene found", format: "please update storyboard ids", arguments: CVaListPointer(_fromUnsafeMutablePointer: nil))
+//            return mainStoryBoard.instantiateViewControllerWithIdentifier("")
         }
     }
 }
@@ -158,11 +157,11 @@ extension MOHUD {
     func topViewController(rootVC: UIViewController?) ->UIViewController {
         if let rvc = rootVC?.presentedViewController {
             if rvc.presentedViewController?.isKindOfClass(UINavigationController.classForCoder()) == true {
-                var navigationController: UINavigationController = rvc.presentedViewController as! UINavigationController
-                var lastViewController = navigationController.viewControllers.last as!  UIViewController
+                let navigationController: UINavigationController = rvc.presentedViewController as! UINavigationController
+                let lastViewController = navigationController.viewControllers.last as  UIViewController!
                 return self.topViewController(lastViewController)
             }
-            var presented = rvc.presentedViewController
+            let presented = rvc.presentedViewController
             return self.topViewController(presented)
         } else {
             return rootVC!
